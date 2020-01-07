@@ -1,0 +1,36 @@
+﻿@model Usersignup2.ViewModels.AddUserViewModel
+<h1> ADD USER</h1>
+
+<form method="post">
+ 
+    <div class="form-group">
+        <label asp-for="Username"></label>
+            <input class="form-control" asp-for="Username" />
+        <span asp-validation-for="Username"></span> 
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="Email"></label>
+            <input class="form-control" asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+
+
+    </div>
+    <div class="form-group">
+        <label asp-for="Password"></label>
+            <input class="form-control" asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+
+
+    </div>
+    <div class="form-group">
+        <label asp-for="Verify"></label>
+        <input class="form-control" asp-for="Verify" />
+        <span asp-validation-for="Verify"></span>
+    </div>
+
+     <input type="submit" value="Sign Up!" />
+
+
+</form>

@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>cheese_mvc</RootNamespace>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\cheese\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Views\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Views\cheese\HomeController.cs" />
+    <Compile Remove="Views\cheese\Remove.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Views\cheese\EmptyHtmlFile.html" />
+  </ItemGroup>
+</Project>

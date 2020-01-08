@@ -8,7 +8,7 @@ namespace CheeseMVC.Models
         public int ID { get; set; }
         public CheeseType Type { get; set; }
         public int Rating { get; set; }
-        private static int nextId = 1;
+        //private static int nextId = 1;
 
      
     }

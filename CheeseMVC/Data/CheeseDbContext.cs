@@ -10,8 +10,10 @@ namespace CheeseMVC.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseSqlite("Data Source=CheeseMVC.db");
 
-       // public CheeseDbContext(DbContextOptions<CheeseDbContext> options)
-       //     : base(options)
+
+        public DbSet<CheeseCategory> Categories { get; set; }
+        // public CheeseDbContext(DbContextOptions<CheeseDbContext> options)
+        //     : base(options)
         //{ }
 
     }

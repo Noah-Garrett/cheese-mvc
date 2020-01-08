@@ -37,7 +37,7 @@ namespace CheeseMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AddCheeseViewModel viewModel)
+        public IActionResult Add(AddCategoryViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -48,7 +48,7 @@ namespace CheeseMVC.Controllers
 
                 context.Categories.Add(newCategory);
                 context.SaveChanges();
-                Redirect("/Category");
+                return Redirect("Index");
 
             }
 

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using CheeseMVC.Data;
 using CheeseMVC.Models;
 using CheeseMVC.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CheeseMVC.Controllers
@@ -11,9 +12,17 @@ namespace CheeseMVC.Controllers
     {
         // GET: /<controller>/
         // /Cheese/Index -- Get request
+
+        private CheeseDbContext context;
+
+        public CheeseController(CheeseDbContext dbcontext)
+        {
+            context = dbcontext;
+        }
+
         public IActionResult Index()
         {
-            List<Cheese> cheeses = CheeseData.GetAll();
+            List<Cheese> cheeses =context.Cheeses.ToList();
 
             return View(cheeses);
         }
@@ -25,8 +34,12 @@ namespace CheeseMVC.Controllers
         {
             foreach (int cheeseId in cheeseIds)
             {
-                CheeseData.Remove(cheeseId);
+                Cheese ch = context.Cheeses.Single(c => c.ID == cheeseId);
+                context.Cheeses.Remove(ch);
+                //CheeseData.Remove(cheeseId);
             }
+
+            context.SaveChanges();
 
             return Redirect("/Cheese/Index");
         }
@@ -45,7 +58,7 @@ namespace CheeseMVC.Controllers
             {
                 Cheese newCheese = addCheeseViewModel.CreateCheese();
 
-                CheeseData.Add(newCheese);
+                context.Cheeses.Add(newCheese);
 
                 return Redirect("/Cheese");
             }
@@ -56,7 +69,9 @@ namespace CheeseMVC.Controllers
         // GET /Cheese/Edit?cheeseId=#
         public IActionResult Edit(int cheeseId)
         {
-            Cheese ch = CheeseData.GetById(cheeseId);
+            Cheese ch = context.Cheeses.Single(context => context.ID == cheeseId);
+
+            //Cheese ch = CheeseData.GetById(cheeseId);
 
             AddEditCheeseViewModel vm = new AddEditCheeseViewModel(ch);
 
@@ -70,11 +85,14 @@ namespace CheeseMVC.Controllers
             // Validate the form data
             if (ModelState.IsValid)
             {
-                Cheese ch = CheeseData.GetById(vm.CheeseId);
+                Cheese ch = context.Cheeses.Single(c => c.ID == vm.CheeseId);
+                //Cheese ch = CheeseData.GetById(vm.CheeseId);
                 ch.Name = vm.Name;
                 ch.Description = vm.Description;
                 ch.Type = vm.Type;
                 ch.Rating = vm.Rating;
+
+                context.SaveChanges();
 
                 return Redirect("/Cheese");
             }

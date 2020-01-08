@@ -7,9 +7,12 @@ namespace CheeseMVC.Data
     {
         public DbSet<Cheese> Cheeses { get; set; }
 
-        public CheeseDbContext(DbContextOptions<CheeseDbContext> options)
-            : base(options)
-        { }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+            => optionsBuilder.UseSqlite("Data Source=CheeseMVC.db");
+
+       // public CheeseDbContext(DbContextOptions<CheeseDbContext> options)
+       //     : base(options)
+        //{ }
 
     }
 }

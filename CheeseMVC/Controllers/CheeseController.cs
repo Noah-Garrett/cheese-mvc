@@ -48,6 +48,8 @@ namespace CheeseMVC.Controllers
         {
             AddCheeseViewModel addCheeseViewModel = new AddCheeseViewModel();
 
+            context.SaveChanges();
+
             return View(addCheeseViewModel);
         }
 
@@ -59,6 +61,8 @@ namespace CheeseMVC.Controllers
                 Cheese newCheese = addCheeseViewModel.CreateCheese();
 
                 context.Cheeses.Add(newCheese);
+
+                context.SaveChanges();
 
                 return Redirect("/Cheese");
             }

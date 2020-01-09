@@ -4,6 +4,7 @@ using CheeseMVC.Data;
 using CheeseMVC.Models;
 using CheeseMVC.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CheeseMVC.Controllers
@@ -22,8 +23,7 @@ namespace CheeseMVC.Controllers
 
         public IActionResult Index()
         {
-            List<Cheese> cheeses =context.Cheeses.ToList();
-
+            IList < Cheese > cheeses = context.Cheeses.Include(c => c.Category).ToList();
             return View(cheeses);
         }
 
@@ -46,7 +46,7 @@ namespace CheeseMVC.Controllers
 
         public IActionResult Add()
         {
-            AddCheeseViewModel addCheeseViewModel = new AddCheeseViewModel();
+            AddCheeseViewModel addCheeseViewModel = new AddCheeseViewModel(context.Categories.ToList());
 
             context.SaveChanges();
 
@@ -58,7 +58,13 @@ namespace CheeseMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                Cheese newCheese = addCheeseViewModel.CreateCheese();
+                
+                CheeseCategory newCheeseCategory = context.Categories.Single
+                    (c => c.ID == addCheeseViewModel.CategoryID);
+
+                Cheese newCheese = addCheeseViewModel.CreateCheese(newCheeseCategory);
+
+                
 
                 context.Cheeses.Add(newCheese);
 
@@ -93,7 +99,7 @@ namespace CheeseMVC.Controllers
                 //Cheese ch = CheeseData.GetById(vm.CheeseId);
                 ch.Name = vm.Name;
                 ch.Description = vm.Description;
-                ch.Type = vm.Type;
+                ch.CategoryID = vm.CategoryID;
                 ch.Rating = vm.Rating;
 
                 context.SaveChanges();

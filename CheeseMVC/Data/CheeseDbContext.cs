@@ -7,6 +7,10 @@ namespace CheeseMVC.Data
     {
         public DbSet<Cheese> Cheeses { get; set; }
 
+        public DbSet<Menu> Menus { get; set; }
+
+        public DbSet<CheeseMenu> CheeseMenus { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseSqlite("Data Source=CheeseMVC.db");
 
@@ -15,6 +19,12 @@ namespace CheeseMVC.Data
         // public CheeseDbContext(DbContextOptions<CheeseDbContext> options)
         //     : base(options)
         //{ }
+
+       protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CheeseMenu>()
+                .HasKey(c => new { c.CheeseID, c.MenuID });
+        }
 
     }
 }

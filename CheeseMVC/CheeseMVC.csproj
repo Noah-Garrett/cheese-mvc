@@ -13,6 +13,7 @@
     <Folder Include="ViewModels\" />
     <Folder Include="Data\" />
     <Folder Include="Views\Category\" />
+    <Folder Include="Views\Menu\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Models\Queso.cs" />

@@ -83,7 +83,7 @@ namespace CheeseMVC.Controllers
 
             //Cheese ch = CheeseData.GetById(cheeseId);
 
-            AddEditCheeseViewModel vm = new AddEditCheeseViewModel(ch);
+            AddEditCheeseViewModel vm = new AddEditCheeseViewModel(ch, context.Categories.ToList());
 
             return View(vm);
         }

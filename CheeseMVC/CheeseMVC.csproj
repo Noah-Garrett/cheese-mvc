@@ -14,6 +14,7 @@
     <Folder Include="Data\" />
     <Folder Include="Views\Category\" />
     <Folder Include="Views\Menu\" />
+    <Folder Include="Hub\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Models\Queso.cs" />

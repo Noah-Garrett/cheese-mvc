@@ -22,6 +22,7 @@ namespace CheeseMVC.ViewModels
         [Display(Name = "Category")]
         public int CategoryID { get; set; }
 
+        [Required]
         public List<SelectListItem> Categories { get; set; }
 
 
